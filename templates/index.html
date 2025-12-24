@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>项目端口监控与启动</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="tip-bar" style="display:none;"></div>
+    <h2>项目端口监控与启动</h2>
+    <table>
+        <tr><th>项目</th><th>端口</th><th>状态</th><th>操作</th><th>访问</th></tr>
+        {% for p in projects %}
+        <tr>
+            <td>{{p.name}}</td>
+            <td>{{p.port}}</td>
+            <td class="{{'open' if p.open else 'closed'}}">{{'开放' if p.open else '未开放'}}</td>
+            <td>
+                <button onclick="startProject('{{p.bat}}')">启动</button>
+            </td>
+            <td>
+                {% if p.open %}
+                <a href="http://127.0.0.1:{{p.port}}" target="_blank">访问</a>
+                {% else %}
+                <span style="color:#aaa">不可用</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <script src="/static/main.js"></script>
+</body>
+</html>
